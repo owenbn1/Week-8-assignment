@@ -3,10 +3,12 @@ class Game {
         this.name = name;
         this.score = score;
     }
+// created a class is being used to construct a internal data for the games and its score.
 
     describe(){
         return `${this.name} has an overall score of ${this.score} /10 `
     }
+    //this is just the output of the games a overall score for users opinion.
 }
 
 class Genre {
@@ -14,6 +16,7 @@ class Genre {
         this.name = name;
         this.games =[];
     }
+    //making an array for the games name to be put an store it
 
     addGame(game){
         if(game instanceof Game){
@@ -21,6 +24,7 @@ class Genre {
         } else {
             throw new Error('you can only add Games')
         }
+        // made an if and else to addgame to be push out to the array 
     }
 
     describe(){
@@ -33,6 +37,7 @@ class Menu {
         this.genres = [];
         this.selectedGenre = null;
     }
+    //created a class menu that also holds an array for the different genres the user can input
     start(){
         let selection = this.showMainMenuOptions();
         while (selection !== 0) {
@@ -58,6 +63,7 @@ class Menu {
             }
             selection = this.showMainMenuOptions();
         }
+        //made a case switch to have different selection on the menu option
         
     }
     showMainMenuOptions() {
@@ -69,7 +75,8 @@ class Menu {
         4) display all game genre
     `);
     }
-    showGenreMenuOptions(gameInfo)   {
+    // this is just the prompt for the case switch so its easier to use
+    showGenreGameOptions(gameInfo)   {
     return prompt (`
     0) back
     1) add a new game
@@ -81,6 +88,8 @@ class Menu {
     `);
 
     }
+    // also another prompt for the sub division for add and delete games
+
     displayGenres(){
     let genreString = '';
     for(let i = 0; i < this.genres.length; i++){
@@ -88,11 +97,13 @@ class Menu {
     }
     alert(genreString);
     }
+    // method that goes literate through the genres length and out put the string its in
 
     createGenre(){
         let name = prompt('Enter genre name');
         this.genres.push(new Genre(name))
     }
+    // method that creates a genre and pushes to the genre name file
 
     viewGenre(){
         let index = prompt('Enter index genre you wish to view: ');
@@ -105,7 +116,7 @@ class Menu {
                 description += i + ') ' + this.selectedGenre.games[i].describe() + '\n';
             }
 
-            let selection = this.showGenreMenuOptions(description);
+            let selection = this.showGenreGameOptions(description);
             switch (selection){
                 case '1':
                     this.createGame();
@@ -114,8 +125,9 @@ class Menu {
                     this.deleteGame();
                     break;
                 default:
-                    break;
+                    alert("Invalid choice. Please choose again");
             }
+            selection = this.showGenreGameOptions(description);
         }
     }
 
@@ -125,6 +137,7 @@ class Menu {
             this.genres.splice(index,1);
         }
     }
+    // deletes the genre the users wishes to delete by input the index and slicing it out of the array
 
     createGame(){
         let name = prompt('Enter Game: ');
@@ -132,16 +145,20 @@ class Menu {
         this.selectedGenre.addGame(new Game(name,score));
     }
 
+    // this method gives a prompt that asked what game you want to put in the genre and also inputting a rate on the game.
+
     deleteGame(){
         let index = prompt('Enter the game that you wish to delete: ');
         if(index >- 1 && index < this.selectedGenre.games.length){
             this.selectedGenre.games.splice(index,1);
         }
     }
+    // this deletes the game/rate of the inside the genre you viewed at
 }
 
 let menu = new Menu();
 menu.start();
+// basically starts the menu prompt
 
 
 
